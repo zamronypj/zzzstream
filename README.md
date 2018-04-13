@@ -14,6 +14,8 @@ Run through composer
 # Available StreamInterface implementation
 
 - `StringStream` string-based StreamInterface implementation.
+- `ReadOnlyStringStream` read-only string-based StreamInterface implementation.
+- `WriteOnlyStringStream` write-only string-based StreamInterface implementation.
 
 # How to use
 
