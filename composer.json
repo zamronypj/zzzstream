@@ -1,0 +1,32 @@
+{
+    "name": "juhara/zzzstream",
+    "description": "PSR-7 StreamInterface implementation collection",
+    "type" : "library",
+    "keywords" : ["psr", "StreamInterface", "stream"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Zamrony P. Juhara",
+            "email": "zamronypj@yahoo.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Juhara\\ZzzStream\\" : "src/",
+            "Juhara\\ZzzStream\\Tests\\" : "tests/"
+        }
+    },
+
+    "require": {
+        "php" : ">=5.3",
+        "psr/http-message": "^1.0",
+    },
+
+    "provide": {
+        "psr/http-message-implementation": "1.0"
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
+    }
+}
