@@ -24,7 +24,7 @@ Run through composer
     use Juhara\ZzzStream\StringStream;
 
     ...
-    $stream = new StringStream('hellow world');
+    $stream = new StringStream('hello world');
 
     //replace PSR-7 ResponseInterface instance with new body
     $newResponse = $response->withBody($stream);
