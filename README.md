@@ -11,6 +11,10 @@ Run through composer
 
     $ composer require juhara/zzzstream
 
+# Available StreamInterface implementation
+
+- `StringStream` string-based StreamInterface implementation.
+
 # How to use
 
     <?php
