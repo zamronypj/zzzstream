@@ -5,7 +5,7 @@ namespace Juhara\ZzzStream;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * PSR-7 StreamInterface implementation that use string
+ * String-based PSR-7 StreamInterface implementation
  *
  * @author Zamrony P. Juhara <zamronypj@yahoo.com>
  */
