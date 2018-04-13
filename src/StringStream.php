@@ -63,7 +63,7 @@ class StringStream implements StreamInterface
     */
     public function __toString()
     {
-        return is_null($this->strData) : '' : $this->strData;
+        return is_null($this->strData) ? '' : $this->strData;
     }
 
     /**
