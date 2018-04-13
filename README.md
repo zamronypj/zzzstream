@@ -23,10 +23,11 @@ Run through composer
 
     use Juhara\ZzzStream\StringStream;
 
+    ...
     $stream = new StringStream('hellow world');
 
-    //PSR-7 ResponseInterface instance
-    $response->withBody($stream);
+    //replace PSR-7 ResponseInterface instance with new body
+    $newResponse = $response->withBody($stream);
 
 # Contributing
 
