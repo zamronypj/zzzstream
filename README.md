@@ -19,6 +19,9 @@ Run through composer
 
     $stream = new StringStream('hellow world');
 
+    //PSR-7 ResponseInterface instance
+    $response->withBody($stream);
+
 # Contributing
 
 If you have any improvement or issues please submit PR.
