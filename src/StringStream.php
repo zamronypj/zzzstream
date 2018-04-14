@@ -253,6 +253,25 @@ class StringStream implements StreamInterface
     }
 
     /**
+     * generate meta data. keys are identical to stream_get_meta_data() output.
+     * @return array meta data
+     */
+    protected function metaData()
+    {
+        return [
+            'wrapper_data' => ['string'],
+            'wrapper_type' => 'string',
+            'stream_type' => 'string',
+            'mode' => 'rw',
+            'unread_bytes' => $this->getSize() - $this->strIndex,
+            'seekable' => $this->isSeekable(),
+            'timeout' => false,
+            'blocked' => true,
+            'eof' => $this->eof()
+        ];
+    }
+
+    /**
     * Get stream metadata as an associative array or retrieve a specific key.
     *
     * The keys returned are identical to the keys returned from PHP's
@@ -266,28 +285,13 @@ class StringStream implements StreamInterface
     */
     public function getMetadata($key = null)
     {
-        $metaData = [
-            'wrapper_data' => ['string'],
-            'wrapper_type' => 'string',
-            'stream_type' => 'string',
-            'mode' => 'rw',
-            'unread_bytes' => $this->getSize() - $this->strIndex,
-            'seekable' => $this->isSeekable(),
-            'timeout' => false,
-            'blocked' => true,
-            'eof' => $this->eof()
-        ];
+        $metaData = $this->metaData();
 
         if (is_null($key)) {
             return $metaData;
         }
 
-        if (isset($metaData[$key]))
-        {
-            return $metaData[$key];
-        }
-
-        return null;
+        return (isset($metaData[$key])) ? $metaData[$key] : null;
     }
 
 }

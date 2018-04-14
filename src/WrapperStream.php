@@ -18,6 +18,10 @@ class WrapperStream implements StreamInterface
      */
     protected $actualStream;
 
+    /**
+     * constructor
+     * @param StreamInterface $actualStream actual stream
+     */
     public function __construct(StreamInterface $actualStream)
     {
         $this->actualStream = $actualStream;
