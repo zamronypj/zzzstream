@@ -3,6 +3,7 @@
 namespace Juhara\ZzzStream;
 
 use Psr\Http\Message\StreamInterface;
+use RuntimeException;
 
 /**
  * String-based PSR-7 StreamInterface implementation
@@ -36,14 +37,14 @@ class StringStream implements StreamInterface
     /**
      * trigger exception when string data is null
      * @return void
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     private function triggerExceptionIfInvalidString()
     {
         if (is_null($this->strData)) {
             //if we get here then this is due to our stream
             //is closed or detached
-            throw new \RuntimeException('Invalid string data');
+            throw new RuntimeException('Invalid string data');
         }
     }
 
@@ -104,7 +105,7 @@ class StringStream implements StreamInterface
     * Returns the current position of the file read/write pointer
     *
     * @return int Position of the file pointer
-    * @throws \RuntimeException on error.
+    * @throws RuntimeException on error.
     */
     public function tell()
     {
@@ -142,7 +143,7 @@ class StringStream implements StreamInterface
     *     PHP $whence values for `fseek()`.  SEEK_SET: Set position equal to
     *     offset bytes SEEK_CUR: Set position to current location plus offset
     *     SEEK_END: Set position to end-of-stream plus offset.
-    * @throws \RuntimeException on failure.
+    * @throws RuntimeException on failure.
     */
     public function seek($offset, $whence = SEEK_SET)
     {
@@ -159,7 +160,7 @@ class StringStream implements StreamInterface
                 $this->strIndex = $this->getSize() + $offset;
                 break;
             default :
-                throw new \RuntimeException('Unknown whence value');
+                throw new RuntimeException('Unknown whence value');
         }
     }
 
@@ -171,7 +172,7 @@ class StringStream implements StreamInterface
     *
     * @see seek()
     * @link http://www.php.net/manual/en/function.fseek.php
-    * @throws \RuntimeException on failure.
+    * @throws RuntimeException on failure.
     */
     public function rewind()
     {
@@ -194,7 +195,7 @@ class StringStream implements StreamInterface
     *
     * @param string $string The string that is to be written.
     * @return int Returns the number of bytes written to the stream.
-    * @throws \RuntimeException on failure.
+    * @throws RuntimeException on failure.
     */
     public function write($string)
     {
@@ -221,7 +222,7 @@ class StringStream implements StreamInterface
     *     call returns fewer bytes.
     * @return string Returns the data read from the stream, or an empty string
     *     if no bytes are available.
-    * @throws \RuntimeException if an error occurs.
+    * @throws RuntimeException if an error occurs.
     */
     public function read($length)
     {
@@ -242,13 +243,32 @@ class StringStream implements StreamInterface
     * Returns the remaining contents in a string
     *
     * @return string
-    * @throws \RuntimeException if unable to read or an error occurs while
+    * @throws RuntimeException if unable to read or an error occurs while
     *     reading.
     */
     public function getContents()
     {
         $this->triggerExceptionIfInvalidString();
         return $this->read($this->getSize());
+    }
+
+    /**
+     * generate meta data. keys are identical to stream_get_meta_data() output.
+     * @return array meta data
+     */
+    protected function metaData()
+    {
+        return [
+            'wrapper_data' => ['string'],
+            'wrapper_type' => 'string',
+            'stream_type' => 'string',
+            'mode' => 'rw',
+            'unread_bytes' => $this->getSize() - $this->strIndex,
+            'seekable' => $this->isSeekable(),
+            'timeout' => false,
+            'blocked' => true,
+            'eof' => $this->eof()
+        ];
     }
 
     /**
@@ -265,28 +285,13 @@ class StringStream implements StreamInterface
     */
     public function getMetadata($key = null)
     {
-        $metaData = [
-            'wrapper_data' => ['string'],
-            'wrapper_type' => 'string',
-            'stream_type' => 'string',
-            'mode' => 'rw',
-            'unread_bytes' => $this->getSize() - $this->strIndex,
-            'seekable' => $this->isSeekable(),
-            'timeout' => false,
-            'blocked' => true,
-            'eof' => $this->eof()
-        ];
+        $metaData = $this->metaData();
 
         if (is_null($key)) {
             return $metaData;
         }
 
-        if (isset($metaData[$key]))
-        {
-            return $metaData[$key];
-        }
-
-        return null;
+        return (isset($metaData[$key])) ? $metaData[$key] : null;
     }
 
 }

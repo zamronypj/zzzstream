@@ -9,26 +9,17 @@ namespace Juhara\ZzzStream;
  */
 class ReadOnlyStringStream extends StringStream
 {
-    /**
-    * Returns whether or not the stream is writable.
-    *
-    * @return bool
-    */
-    public function isWritable()
-    {
-        return false;
-    }
+    use ReadOnlyTrait;
 
     /**
-    * Write data to the stream.
-    *
-    * @param string $string The string that is to be written.
-    * @return int Returns the number of bytes written to the stream.
-    * @throws \RuntimeException on failure.
-    */
-    public function write($string)
+     * generate meta data. keys are identical to stream_get_meta_data() output.
+     * with mode is modified to read-only.
+     * @return array meta data
+     */
+    protected function metaData()
     {
-        throw new \RuntimeException("Unsupported operation");
+        $metaData = parent::metaData();
+        $metaData['mode'] = 'r';
+        return $metaData;
     }
-
 }
