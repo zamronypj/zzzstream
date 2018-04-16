@@ -1,10 +1,10 @@
 # zzzstream
-PSR-7 StreamInterface implementation collection
+PSR-7 [StreamInterface][StreamInterface] implementation collection
 
 # Requirement
 - [PHP >= 5.3](https://php.net)
 - [Composer](https://getcomposer.org)
-- [PSR-7](http://www.php-fig.org/psr/psr-7/).
+- [PSR-7 StreamInterface][StreamInterface].
 
 # Installation
 Run through composer
@@ -13,13 +13,13 @@ Run through composer
 
 # Available StreamInterface implementation
 
-- `StringStream` string-based StreamInterface implementation.
-- `ReadOnlyStringStream` read-only string-based StreamInterface implementation.
-- `WriteOnlyStringStream` write-only string-based StreamInterface implementation.
-- `WrapperStream` decorator class that implements StreamInterface which does nothing
-except wraps other StreamInterface instance.
-- `ReadOnlyStream` decorator class that turn other StreamInterface into read only stream.
-- `WriteOnlyStream` decorator class that turn other StreamInterface into write only stream.
+- `StringStream` string-based [StreamInterface][StreamInterface] implementation.
+- `ReadOnlyStringStream` read-only string-based [StreamInterface][StreamInterface] implementation.
+- `WriteOnlyStringStream` write-only string-based [StreamInterface][StreamInterface] implementation.
+- `WrapperStream` decorator class that implements [StreamInterface][StreamInterface] which does nothing
+except wraps other [StreamInterface][StreamInterface] instance.
+- `ReadOnlyStream` decorator class that turn other [StreamInterface][StreamInterface] into read only stream.
+- `WriteOnlyStream` decorator class that turn other [StreamInterface][StreamInterface] into write only stream.
 
 # How to use
 
@@ -65,3 +65,5 @@ except wraps other StreamInterface instance.
 If you have any improvement or issues please submit PR.
 
 Thank you.
+
+[StreamInterface]:https://www.php-fig.org/psr/psr-7/#34-psrhttpmessagestreaminterface
