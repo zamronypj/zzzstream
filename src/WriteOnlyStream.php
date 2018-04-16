@@ -7,7 +7,7 @@ namespace Juhara\ZzzStream;
  *
  * @author Zamrony P. Juhara <zamronypj@yahoo.com>
  */
-class WriteOnlyStream extends ReadWriteStream
+final class WriteOnlyStream extends ReadWriteStream
 {
     use WriteOnlyTrait;
 
