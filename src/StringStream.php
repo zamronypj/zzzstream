@@ -31,7 +31,8 @@ class StringStream implements StreamInterface
     public function __construct($inputStr)
     {
         $this->strData = $inputStr;
-        $this->strIndex = 0;
+        $this->triggerExceptionIfInvalidString();
+        $this->strIndex = strlen($inputStr);
     }
 
     /**
@@ -41,7 +42,7 @@ class StringStream implements StreamInterface
      */
     private function triggerExceptionIfInvalidString()
     {
-        if (is_null($this->strData)) {
+        if (is_null($this->strData) || (! is_string($this->strData))) {
             //if we get here then this is due to our stream
             //is closed or detached
             throw new RuntimeException('Invalid string data');
@@ -201,7 +202,7 @@ class StringStream implements StreamInterface
     {
         $this->triggerExceptionIfInvalidString();
         $this->strData = substr($this->strData, 0 , $this->strIndex) . $string;
-        $this->seek(strlen($string));
+        $this->seek(strlen($string), SEEK_CUR);
     }
 
     /**

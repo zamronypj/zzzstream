@@ -18,10 +18,18 @@ final class StringStreamTest extends TestCase
         $this->assertEquals($inputString, $outputString);
     }
 
-    public function testConstructorStreamPointerShouldBeAtBeginning()
+    public function testConstructorStreamPointerShouldBeAtEnd()
     {
         $inputString = 'We Love You';
         $stream =  new StringStream($inputString);
+        $this->assertEquals($stream->tell(), strlen($inputString));
+    }
+
+    public function testRewindStreamPointerShouldBeAtBeginning()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->rewind();
         $this->assertEquals($stream->tell(), 0);
     }
 
@@ -36,7 +44,35 @@ final class StringStreamTest extends TestCase
     {
         $inputString = 'We Love You';
         $stream =  new StringStream($inputString);
+        $stream->rewind();
         $stringRead = $stream->read(7);
         $this->assertEquals($stringRead, 'We Love');
+    }
+
+    public function testGetContentsFromStreamShouldResultCorrectString()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->rewind();
+        $stringRead = $stream->getContents();
+        $this->assertEquals($stringRead, 'We Love You');
+    }
+
+    public function testWriteToStreamShouldResultCorrectString()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->write(' Dear');
+        $stringRead = (string) $stream;
+        $this->assertEquals($stringRead, 'We Love You Dear');
+    }
+
+    public function testWriteToStreamShouldMovePositionToEnd()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->write(' Dear');
+        $stringRead = (string) $stream;
+        $this->assertEquals($stream->tell(), strlen('We Love You Dear'));
     }
 }
