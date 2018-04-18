@@ -75,4 +75,20 @@ final class StringStreamTest extends TestCase
         $stringRead = (string) $stream;
         $this->assertEquals($stream->tell(), strlen('We Love You Dear'));
     }
+
+    public function testSeekToBeginningShouldMovePositionToBeginning()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->seek(0);
+        $this->assertEquals($stream->tell(), 0);
+    }
+
+    public function testSeekNegativeOffsetFromCurrentPosShouldMovePositionToCorrectPosition()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->seek(-3, SEEK_CUR);
+        $this->assertEquals($stream->tell(), strlen($inputString) - 3);
+    }
 }
