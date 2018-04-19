@@ -76,11 +76,35 @@ final class StringStreamTest extends TestCase
         $this->assertEquals($stream->tell(), strlen('We Love You Dear'));
     }
 
-    public function testSeekToBeginningShouldMovePositionToBeginning()
+    public function testSeekToBeginningWithoutSecondParamShouldMovePositionToBeginning()
     {
         $inputString = 'We Love You';
         $stream =  new StringStream($inputString);
         $stream->seek(0);
+        $this->assertEquals($stream->tell(), 0);
+    }
+
+    public function testSeekToOffsetWithoutSecondParamShouldMovePositionToCorrectPosition()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->seek(3);
+        $this->assertEquals($stream->tell(), 3);
+    }
+
+    public function testSeekToOffsetShouldMovePositionToCorrectPosition()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->seek(3, SEEK_SET);
+        $this->assertEquals($stream->tell(), 3);
+    }
+
+    public function testRewindShouldMovePositionToBeginning()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->rewind();
         $this->assertEquals($stream->tell(), 0);
     }
 
@@ -89,6 +113,23 @@ final class StringStreamTest extends TestCase
         $inputString = 'We Love You';
         $stream =  new StringStream($inputString);
         $stream->seek(-3, SEEK_CUR);
+        $this->assertEquals($stream->tell(), strlen($inputString) - 3);
+    }
+
+    public function testSeekPositifOffsetFromCurrentPosShouldMovePositionToCorrectPosition()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->rewind();
+        $stream->seek(3, SEEK_CUR);
+        $this->assertEquals($stream->tell(), 3);
+    }
+
+    public function testSeekNegativeOffsetFromEndPosShouldMovePositionToCorrectPosition()
+    {
+        $inputString = 'We Love You';
+        $stream =  new StringStream($inputString);
+        $stream->seek(-3, SEEK_END);
         $this->assertEquals($stream->tell(), strlen($inputString) - 3);
     }
 }
