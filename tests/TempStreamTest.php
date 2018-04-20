@@ -18,4 +18,12 @@ final class TempStreamTest extends TestCase
         $outputString = (string) $stream;
         $this->assertEquals($inputString, $outputString);
     }
+
+    public function testWriteShouldResultCorrectSize()
+    {
+        $stream =  new TempStream();
+        $inputString = 'We Love You';
+        $stream->write($inputString);
+        $this->assertEquals($stream->getSize(), strlen($inputString));
+    }
 }
