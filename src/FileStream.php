@@ -7,11 +7,11 @@ use Psr\Http\Message\StreamInterface;
 use RuntimeException;
 
 /**
- * Basic PSR-7 StreamInterface implementation
+ * Basic PSR-7 StreamInterface implementation using PHP file operation
  *
  * @author Zamrony P. Juhara <zamronypj@yahoo.com>
  */
-class Stream implements StreamInterface
+class FileStream implements StreamInterface
 {
     /**
      * stream handler
@@ -40,7 +40,8 @@ class Stream implements StreamInterface
      */
     public function __toString()
     {
-        return stream_get_contents($this->stream);
+        $this->rewind();
+        return $this->getContents();
     }
 
     /**
@@ -75,7 +76,8 @@ class Stream implements StreamInterface
      */
     public function getSize()
     {
-        return fsize($this->stream);
+        $stats = fstat($this->stream);
+        return $stats['size'];
     }
 
     /**
@@ -86,7 +88,7 @@ class Stream implements StreamInterface
      */
     public function tell()
     {
-        return $this->actualStream->tell();
+        return ftell($this->stream);
     }
 
     /**
@@ -96,7 +98,7 @@ class Stream implements StreamInterface
      */
     public function eof()
     {
-        return $this->actualStream->eof();
+        return feof($this->stream);
     }
 
     /**
@@ -106,7 +108,7 @@ class Stream implements StreamInterface
      */
     public function isSeekable()
     {
-        return $this->actualStream->isSeekable();
+        return true;
     }
 
     /**
@@ -123,7 +125,7 @@ class Stream implements StreamInterface
      */
     public function seek($offset, $whence = SEEK_SET)
     {
-        $this->actualStream->seek($offset, $whence);
+        fseek($this->stream, $offset, $whence);
     }
 
     /**
@@ -138,7 +140,7 @@ class Stream implements StreamInterface
      */
     public function rewind()
     {
-        $this->actualStream->rewind();
+        rewind($this->stream);
     }
 
     /**
@@ -148,7 +150,7 @@ class Stream implements StreamInterface
      */
     public function isWritable()
     {
-        return $this->actualStream->isWritable();
+        return true;
     }
 
     /**
@@ -160,7 +162,7 @@ class Stream implements StreamInterface
      */
     public function write($string)
     {
-        return $this->actualStream->write($string);
+        return fwrite($this->stream, $string);
     }
 
     /**
@@ -170,7 +172,7 @@ class Stream implements StreamInterface
      */
     public function isReadable()
     {
-        return $this->actualStream->isReadable();
+        return true;
     }
 
     /**
@@ -185,7 +187,7 @@ class Stream implements StreamInterface
      */
     public function read($length)
     {
-        return $this->actualStream->read($length);
+        return fread($this->stream, $length);
     }
 
     /**
@@ -197,7 +199,7 @@ class Stream implements StreamInterface
      */
     public function getContents()
     {
-        return $this->actualStream->getContents();
+        return stream_get_contents($this->stream);
     }
 
     /**
@@ -214,7 +216,7 @@ class Stream implements StreamInterface
      */
     public function getMetadata($key = null)
     {
-        return $this->actualStream->getMetadata($key);
+        return stream_get_meta_data($this->stream, $key);
     }
 
 }
