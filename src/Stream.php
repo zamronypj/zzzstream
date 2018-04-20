@@ -2,7 +2,6 @@
 
 namespace Juhara\ZzzStream;
 
-
 use Psr\Http\Message\StreamInterface;
 use RuntimeException;
 
