@@ -20,6 +20,8 @@ Run through composer
 except wraps other [StreamInterface][StreamInterface] instance.
 - `ReadOnlyStream` decorator class that turn other [StreamInterface][StreamInterface] into read only stream.
 - `WriteOnlyStream` decorator class that turn other [StreamInterface][StreamInterface] into write only stream.
+- `FileStream` file-based [StreamInterface][StreamInterface] implementation.
+- `TempStream` temporary stream [StreamInterface][StreamInterface] implementation.
 
 # How to use
 
