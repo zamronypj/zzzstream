@@ -216,7 +216,16 @@ class FileStream implements StreamInterface
      */
     public function getMetadata($key = null)
     {
-        return stream_get_meta_data($this->stream, $key);
+        $metaData = stream_get_meta_data($this->stream);
+        if (is_null($key)) {
+            return $metaData;
+        }
+
+        if (isset($metaData[$key])) {
+            return $metaData[$key];
+        }
+
+        return null;
     }
 
 }
