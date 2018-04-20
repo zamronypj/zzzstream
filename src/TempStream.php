@@ -2,7 +2,6 @@
 
 namespace Juhara\ZzzStream;
 
-
 /**
  * Temporary stream PSR-7 StreamInterface implementation
  *
@@ -12,6 +11,6 @@ class TempStream extends FileStream
 {
     public function __construct()
     {
-        parent::__construct(fopen('php://temp', 'rw'));
+        parent::__construct(fopen('php://temp', 'w+'));
     }
 }
