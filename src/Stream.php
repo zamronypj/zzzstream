@@ -157,13 +157,25 @@ class Stream implements StreamInterface
     }
 
     /**
+     * get readable/writeable status of stream
+     * @param  array  $modes list of modes
+     * @return bool
+     */
+    private function getReadWriteStatus(array $modes)
+    {
+        $mode = $this->getMetadata('mode');
+        return in_array($mode, $modes);
+    }
+
+    /**
      * Returns whether or not the stream is writable.
      *
      * @return bool
      */
     public function isWritable()
     {
-        return true;
+        $writeableMode = ['r+', 'w', 'w+', 'c', 'c+', 'a', 'a+', 'x', 'x+'];
+        return $this->getReadWriteStatus($writeableMode);
     }
 
     /**
@@ -186,7 +198,8 @@ class Stream implements StreamInterface
      */
     public function isReadable()
     {
-        return true;
+        $readableMode = ['r', 'r+', 'w+', 'c+', 'a+', 'x+'];
+        return $this->getReadWriteStatus($readableMode);
     }
 
     /**
