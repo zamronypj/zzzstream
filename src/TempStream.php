@@ -7,7 +7,7 @@ namespace Juhara\ZzzStream;
  *
  * @author Zamrony P. Juhara <zamronypj@yahoo.com>
  */
-class TempStream extends FileStream
+class TempStream extends Stream
 {
     public function __construct()
     {
