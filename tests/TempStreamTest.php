@@ -25,8 +25,9 @@ final class TempStreamTest extends TestCase
         $stream =  new TempStream();
         $inputString = 'We Love You';
         $stream->write($inputString);
+        $size = $stream->getSize();
         $stream->close();
-        $this->assertEquals($stream->getSize(), strlen($inputString));
+        $this->assertEquals($size, strlen($inputString));
     }
 
     public function testWriteShouldMovePointerToCorrectPosition()
@@ -34,8 +35,9 @@ final class TempStreamTest extends TestCase
         $stream =  new TempStream();
         $inputString = 'We Love You';
         $stream->write($inputString);
+        $pos = $stream->tell();
         $stream->close();
-        $this->assertEquals($stream->tell(), strlen($inputString));
+        $this->assertEquals($pos, strlen($inputString));
     }
 
     public function testWriteMultipleStringShouldAppendText()
