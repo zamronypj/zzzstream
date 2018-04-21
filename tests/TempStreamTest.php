@@ -16,6 +16,7 @@ final class TempStreamTest extends TestCase
         $inputString = 'We Love You';
         $stream->write($inputString);
         $outputString = (string) $stream;
+        $stream->close();
         $this->assertEquals($inputString, $outputString);
     }
 
@@ -24,6 +25,7 @@ final class TempStreamTest extends TestCase
         $stream =  new TempStream();
         $inputString = 'We Love You';
         $stream->write($inputString);
+        $stream->close();
         $this->assertEquals($stream->getSize(), strlen($inputString));
     }
 
@@ -32,6 +34,7 @@ final class TempStreamTest extends TestCase
         $stream =  new TempStream();
         $inputString = 'We Love You';
         $stream->write($inputString);
+        $stream->close();
         $this->assertEquals($stream->tell(), strlen($inputString));
     }
 
@@ -43,6 +46,7 @@ final class TempStreamTest extends TestCase
         $stream->write($inputString1);
         $stream->write($inputString2);
         $outputString = (string) $stream;
+        $stream->close();
         $this->assertEquals($inputString1 . $inputString2, $outputString);
     }
 
@@ -53,6 +57,7 @@ final class TempStreamTest extends TestCase
         $stream->write($inputString);
         $stream->rewind();
         $outputString = $stream->read(strlen($inputString));
+        $stream->close();
         $this->assertEquals($inputString, $outputString);
     }
 }

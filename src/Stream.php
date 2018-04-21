@@ -18,14 +18,28 @@ class Stream implements StreamInterface
      */
     protected $stream;
 
+    /**
+     * constructor that initialize Stream instance with stream resource from
+     * fopen(), fsockopen()
+     *
+     * @link http://www.php.net/manual/en/function.fopen.php
+     * @link http://www.php.net/manual/en/function.fsockopen.php
+     * @param [type] $stream stream resource
+     */
     public function __construct($stream)
     {
         $this->stream = $stream;
     }
 
+    /**
+     * trigger exception when stream is not valid
+     * @param  resource $stream stream resource
+     * @return void
+     * @throws \RuntimeException on failure.
+     */
     private function triggerExceptionIfStreamIsInvalid($stream)
     {
-        if (is_null($stream)) {
+        if (is_null($stream) || (! is_resource($stream))) {
             throw new RuntimeException('Invalid stream');
         }
     }
@@ -164,6 +178,8 @@ class Stream implements StreamInterface
     private function getReadWriteStatus(array $modes)
     {
         $mode = $this->getMetadata('mode');
+        //strip out any binary/text mode because we only need read/write
+        $mode = str_replace(['b', 't'], '', $mode);
         return in_array($mode, $modes);
     }
 
