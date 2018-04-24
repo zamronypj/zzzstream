@@ -73,4 +73,13 @@ final class TempStreamTest extends TestCase
         $stream->close();
         $this->assertEquals($outputString, 'We');
     }
+
+    public function testReadEmptyStreamResultEmptyString()
+    {
+        $stream =  new TempStream();
+        $stream->rewind();
+        $outputString = $stream->read(2);
+        $stream->close();
+        $this->assertEquals($outputString, '');
+    }
 }
