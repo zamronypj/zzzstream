@@ -82,4 +82,15 @@ final class TempStreamTest extends TestCase
         $stream->close();
         $this->assertEquals($outputString, '');
     }
+
+    public function testSeekByZeroOffsetShouldMovePointerToBeginning()
+    {
+        $stream =  new TempStream();
+        $inputString = 'We Love You';
+        $stream->write($inputString);
+        $stream->seek(0);
+        $pos = $stream->tell();
+        $stream->close();
+        $this->assertEquals($pos, 0);
+    }
 }
