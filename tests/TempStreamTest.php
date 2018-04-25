@@ -93,4 +93,26 @@ final class TempStreamTest extends TestCase
         $stream->close();
         $this->assertEquals($pos, 0);
     }
+
+    public function testSeekByOffsetShouldMovePointerToCorrectPosition()
+    {
+        $stream =  new TempStream();
+        $inputString = 'We Love You';
+        $stream->write($inputString);
+        $stream->seek(4);
+        $pos = $stream->tell();
+        $stream->close();
+        $this->assertEquals($pos, 4);
+    }
+
+    public function testSeekRelativeToEndShouldMovePointerToEnd()
+    {
+        $stream =  new TempStream();
+        $inputString = 'We Love You';
+        $stream->write($inputString);
+        $stream->seek(0, SEEK_END);
+        $pos = $stream->tell();
+        $stream->close();
+        $this->assertEquals($pos, strlen($inputString));
+    }
 }
