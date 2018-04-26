@@ -62,6 +62,12 @@ except wraps other [StreamInterface][StreamInterface] instance.
     //replace PSR-7 ResponseInterface instance with new body
     $newResponse = $response->withBody($stream);
 
+# Unit Test
+
+To run unit test, copy `phpunit.xml.dist` to `phpunit.xml` and run
+
+    $ ./vendor/bin/phpunit
+
 # Contributing
 
 If you have any improvement or issues please submit PR.
