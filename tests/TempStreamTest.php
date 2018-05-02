@@ -132,6 +132,18 @@ final class TempStreamTest extends TestCase
         $stream =  new TempStream();
         $inputString = 'We Love You';
         $stream->write($inputString);
+        $stream->seek(3);
+        $stream->seek(3, SEEK_CUR);
+        $pos = $stream->tell();
+        $stream->close();
+        $this->assertEquals($pos, 6);
+    }
+
+    public function testSeekToNegativeRelativeToCurrentPosShouldMovePointerToCorrectPosition()
+    {
+        $stream =  new TempStream();
+        $inputString = 'We Love You';
+        $stream->write($inputString);
         $stream->seek(-3, SEEK_CUR);
         $pos = $stream->tell();
         $stream->close();
