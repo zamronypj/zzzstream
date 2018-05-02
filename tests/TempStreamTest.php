@@ -126,4 +126,15 @@ final class TempStreamTest extends TestCase
         $stream->close();
         $this->assertEquals($pos, strlen($inputString)-3);
     }
+
+    public function testSeekRelativeToCurrentPosShouldMovePointerToCorrectPosition()
+    {
+        $stream =  new TempStream();
+        $inputString = 'We Love You';
+        $stream->write($inputString);
+        $stream->seek(-3, SEEK_CUR);
+        $pos = $stream->tell();
+        $stream->close();
+        $this->assertEquals($pos, strlen($inputString)-3);
+    }
 }
