@@ -149,4 +149,15 @@ final class TempStreamTest extends TestCase
         $stream->close();
         $this->assertEquals($pos, strlen($inputString)-3);
     }
+
+    public function testEofShouldResultCorrectStatus()
+    {
+        $stream =  new TempStream();
+        $inputString = 'We Love You';
+        $stream->write($inputString);
+        $outputString = $stream->getContents();
+        $eof = $stream->eof();
+        $stream->close();
+        $this->assertEquals($eof, true);
+    }
 }
