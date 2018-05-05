@@ -9,7 +9,7 @@ use RuntimeException;
  *
  * @author Zamrony P. Juhara <zamronypj@yahoo.com>
  */
-class ReadOnlyTrait
+trait ReadOnlyTrait
 {
     /**
      * Returns whether or not the stream is writable.
