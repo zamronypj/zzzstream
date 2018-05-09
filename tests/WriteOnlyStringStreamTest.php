@@ -41,7 +41,7 @@ final class WriteOnlyStringStreamTest extends TestCase
         $this->assertEquals($stream->getSize(), strlen($inputString));
     }
 
-    public function testReadFixedLengthFromStreamShouldResultCorrectString()
+    public function testReadFixedLengthFromStreamShouldResultCorrectException()
     {
         $this->setExpectedException(RuntimeException::class);
         $inputString = 'We Love You';
@@ -50,7 +50,7 @@ final class WriteOnlyStringStreamTest extends TestCase
         $stringRead = $stream->read(7);
     }
 
-    public function testGetContentsFromStreamShouldResultCorrectString()
+    public function testGetContentsFromStreamShouldResultCorrectException()
     {
         $this->setExpectedException(RuntimeException::class);
         $inputString = 'We Love You';
