@@ -2,7 +2,7 @@
 PSR-7 [StreamInterface][StreamInterface] implementation collection
 
 # Requirement
-- [PHP >= 5.3](https://php.net)
+- [PHP >= 7.2](https://php.net)
 - [Composer](https://getcomposer.org)
 - [PSR-7 StreamInterface][StreamInterface].
 

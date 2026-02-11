@@ -61,7 +61,7 @@ final class ReadOnlyStringStreamTest extends TestCase
 
     public function testWriteToStreamShouldResultCorrectException()
     {
-        $this->setExpectedException(RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $inputString = 'We Love You';
         $stream =  new ReadOnlyStringStream($inputString);
         $stream->write(' Dear');
